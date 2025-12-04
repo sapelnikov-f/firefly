@@ -7,6 +7,7 @@ router = APIRouter()
 loader = DataLoader()
 graph_service = GraphService()
 
+print("Loading POIs and segments...")
 pois = loader.load_pois()
 segments = loader.load_segments()
 graph_service.build_graph(pois, segments)

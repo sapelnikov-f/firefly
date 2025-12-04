@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(route.router, prefix="/api")
+app.include_router(route.router)
 
 
 @app.get("/", response_class=HTMLResponse)
