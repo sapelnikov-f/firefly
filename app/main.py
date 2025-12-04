@@ -14,10 +14,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 app.include_router(route.router)
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
     return FileResponse("app/static/index.html")
+
+@app.get("/builder", response_class=HTMLResponse)
+async def builder_page():
+    return FileResponse("app/static/builder.html")

@@ -3,27 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Firefly — Построение маршрута</title>
+    <title>Firefly — Навигатор маршрутов Архыза</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Построение маршрута</h1>
+    <div class="container welcome-container">
+        <div class="welcome-content">
+            <h1>Firefly</h1>
+            <p class="subtitle">Построение маршрутов на Архызе</p>
+            
+            <div class="welcome-description">
+                <p>Найдите кратчайший маршрут между любыми двумя точками на карте Архыза</p>
+            </div>
 
-        <div class="controls">
-            <form action="/route" method="get" target="resultFrame" style="display:flex; width:100%; gap:10px;">
-                <input type="number" name="from_id" placeholder="ID начальной точки" required>
-                <input type="number" name="to_id" placeholder="ID конечной точки" required>
-                <button type="submit">Найти маршрут</button>
-            </form>
-        </div>
-
-        <div id="map" style="height: 600px;">
-            <iframe name="resultFrame" style="width:100%; height:100%; border:0; background:#fff;"></iframe>
-        </div>
-
-        <div id="result" style="margin-top:16px;">
-            <p>Результат поиска маршрута будет отображён выше (в формате JSON). Для более удобного просмотра используйте Swagger UI: <a href="/docs">/docs</a></p>
+            <a href="/builder" class="btn btn-primary btn-large">
+                Построить маршрут
+            </a>
         </div>
     </div>
 </body>
