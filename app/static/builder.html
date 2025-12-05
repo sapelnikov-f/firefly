@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Firefly — Построение маршрута</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/" class="btn-back">← Назад</a>
+            <h1>Построение маршрута</h1>
+            <div></div>
+        </div>
+
+        <div class="controls">
+            <div class="input-group">
+                <label for="from_id">Начальная точка:</label>
+                <input type="number" id="from_id" placeholder="ID начальной точки" required>
+            </div>
+
+            <div class="input-group">
+                <label for="to_id">Конечная точка:</label>
+                <input type="number" id="to_id" placeholder="ID конечной точки" required>
+            </div>
+
+            <button id="findRoute" class="btn btn-primary">Найти маршрут</button>
+        </div>
+
+        <div id="result" class="result-container" style="display:none;">
+            <h2>Результат маршрута</h2>
+            <div id="resultContent" class="result-content"></div>
+        </div>
+
+        <div id="loading" class="loading" style="display:none;">
+            <p>Поиск маршрута...</p>
+        </div>
+
+        <div id="error" class="error" style="display:none;">
+            <p id="errorMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        function escapeHtml(unsafe) {
+            if (unsafe === null || unsafe === undefined) return "";
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        document.getElementById('findRoute').addEventListener('click', async function() {
+            const fromId = document.getElementById('from_id').value;
+            const toId = document.getElementById('to_id').value;
+
+            if (!fromId || !toId) {
+                showError('Пожалуйста, укажите обе точки');
+                return;
+            }
+
+            if (fromId === toId) {
+                showError('Начальная и конечная точки должны быть разными');
+                return;
+            }
+
+            showLoading(true);
+            hideError();
+            hideResult();
+
+            try {
+                const response = await fetch(`/route?from_id=${fromId}&to_id=${toId}`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    showError(data.detail || 'Ошибка при поиске маршрута');
+                    return;
+                }
+
+                displayResult(data);
+            } catch (error) {
+                showError('Ошибка связи с сервером: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        document.getElementById('from_id').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') document.getElementById('findRoute').click();
+        });
+
+        document.getElementById('to_id').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') document.getElementById('findRoute').click();
+        });
+
+        function displayResult(data) {
+            const resultContent = document.getElementById('resultContent');
+            let html = '';
+
+            if (data.points && data.points.length) {
+                html += '<ol class="point-list">';
+                data.points.forEach((p, idx) => {
+                    const name = escapeHtml(p.name || `Точка ${p.id}`);
+                    const id = escapeHtml(p.id);
+                    const lat = p.lat !== null && p.lat !== undefined ? escapeHtml(p.lat) : '—';
+                    const lon = p.lon !== null && p.lon !== undefined ? escapeHtml(p.lon) : '—';
+                    const elev = p.elevation !== null && p.elevation !== undefined ? escapeHtml(p.elevation) + ' м' : '—';
+                    const cat = escapeHtml(p.category || '—');
+
+                    html += `<li class="point-item">
+                        <div class="point-header"><strong>${idx + 1}. ${name}</strong> <span class="point-id">ID: ${id}</span></div>
+                        <div class="point-meta">Координаты: ${lat}, ${lon} · Высота: ${elev} · Категория: ${cat}</div>
+                    </li>`;
+                });
+                html += '</ol>';
+
+                html += `<div class="summary">Дистанция: <strong>${escapeHtml(data.distance_m)}</strong> м — Набор высоты: <strong>${escapeHtml(data.elevation_gain_m)}</strong> м</div>`;
+            } else {
+                html = `<pre>${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
+            }
+
+            resultContent.innerHTML = html;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('error').style.display = 'block';
+        }
+
+        function hideError() {
+            document.getElementById('error').style.display = 'none';
+        }
+
+        function hideResult() {
+            document.getElementById('result').style.display = 'none';
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
