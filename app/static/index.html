@@ -1,25 +1,161 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Firefly — Навигатор маршрутов Архыза</title>
+    <meta charset="UTF-8">
+    <title>Главная</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
-    <div class="container welcome-container">
-        <div class="welcome-content">
-            <h1>Firefly</h1>
-            <p class="subtitle">Построение маршрутов на Архызе</p>
-            
-            <div class="welcome-description">
-                <p>Найдите кратчайший маршрут между любыми двумя точками на карте Архыза</p>
-            </div>
 
-            <a href="/builder" class="btn btn-primary btn-large">
-                Построить маршрут
-            </a>
+<body>
+    
+<div class="slider">
+    <div class="slides">
+
+        <div class="slide active">
+            <img src="/static/photos/Elbrus.jpg" alt="Эльбрус">
+            <div class="glass"><h2>ELBRUS</h2></div>
+        </div>
+
+        <div class="slide">
+            <img src="/static/photos/Arkhyz.jpg" alt="Архыз">
+            <div class="glass"><h2>ARKHYZ</h2></div>
+        </div>
+
+        <div class="slide">
+            <img src="/static/photos/Dombai.jpg" alt="Домбай">
+            <div class="glass"><h2>DOMBAI</h2></div>
+        </div>
+
+    </div>
+
+    <a href="/routes" class="routes-btn">routes</a>
+    <a href="/builder" class="routes-btn about-btn">generate</a>
+
+    <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</div>
+
+
+<div class="background-section">
+    <div class="test_photo">
+        <img src="/static/photos/фон.jpg" alt="фон для блюра">
+    </div>
+
+    <div class="container">
+        <div class="cards-grid">
+
+            <div class="card"><h1>level</h1><p> 1 - 7</p></div>
+            <div class="card"><h1>high</h1><p>up to 5642 m.</p></div>
+            <div class="card"><h1>duration</h1><p>3-8 days</p></div>
+            <div class="card"><h1>stops</h1><p>2-6 stops</p></div>
+            <div class="card"><h1>slope level</h1><p>up to 34%</p></div>
+            <div class="card"><h1>emotions</h1><p>1.000.000 garanted</p></div>
+
         </div>
     </div>
+</div>
+
+
+<section class="faq-wrapper">
+
+    <div class="faq-bg">
+        <img src="/static/photos/question.jpg" alt="фон FAQ">
+    </div>
+
+    <div class="faq-section">
+        <h2 class="faq-title">questions & answers</h2>
+
+        <div class="faq-item">
+            <button class="faq-question">Зачем нужна система категорирования?</button>
+            <div class="faq-answer">
+                <p>1. Чтобы при подготовке к маршруту знать, к чему готовиться, и правильно оценить свои силы. Если группа в прошлом сезоне прошла маршрут третьей категории сложности, и это был по-настоящему тяжёлый поход, то не стоит в этом сезоне собираться на маршрут четвёртой категории.
+ <br>2. Чтобы иметь возможность оценить предыдущий опыт участника. Если группа собралась на «пятёрочный» маршрут, то брать туда человека с опытом первой категории определённо не стоит.</br>
+ 3. Для проведения соревнований по спортивному туризму, когда группы предоставляют в маршрутно-квалификационную комиссию отчёты о пройденных походах, чтобы определить, кто же прошел самый сложный и интересный маршрут.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Как рассчитывается сложность маршрута?</button>
+            <div class="faq-answer">
+                <p>На категорирование маршрута влияет километраж, сложность пройденных перевалов и продолжительность похода. 
+Сложность перевалов определяется крутизной склонов, покрытием (травянистое, скальное, снежное, ледовое), набором необходимого для безопасного преодоления снаряжения, временем, затраченным на прохождение, и количеством точек страховки.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Нужен ли опыт для участия?</button>
+            <div class="faq-answer">
+                <p>Мы предлагаем походы разного уровня сложности – от начального до продвинутого. В описании каждого маршрута указан рекомендуемый уровень подготовки. Для новичков у нас есть специальные походы, где мы обучаем основам и идем в комфортном темпе.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Какую страховку нужно оформить?</button>
+            <div class="faq-answer">
+                <p>Мы настоятельно рекомендуем каждому участнику оформить комплексную туристическую страховку, которая включает медицинскую эвакуацию вертолетом (спасательные работы) и покрытие активностей в горах (треккинг, альпинизм). Это обязательное требование для участия в походах средней и высокой сложности.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+let index = 0;
+
+function showSlide(n) {
+    slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === n);
+        dots[i].classList.toggle('active', i === n);
+    });
+}
+
+function nextSlide() {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+}
+
+showSlide(index);
+setInterval(nextSlide, 4000);
+
+dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+        index = i;
+        showSlide(index);
+    });
+});
+
+
+// FAQ FIXED LOGIC
+document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = item.classList.contains('active');
+
+        document.querySelectorAll('.faq-item.active').forEach(activeItem => {
+            if (activeItem !== item) {
+                activeItem.classList.remove('active');
+                activeItem.querySelector('.faq-answer').style.maxHeight = null;
+            }
+        });
+
+        if (!isOpen) {
+            item.classList.add('active');
+            answer.style.maxHeight = answer.scrollHeight + "px";
+        } else {
+            item.classList.remove('active');
+            answer.style.maxHeight = null;
+        }
+    });
+});
+</script>
+
 </body>
 </html>

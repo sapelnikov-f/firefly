@@ -4,47 +4,48 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Firefly — Построение маршрута</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/routes.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <a href="/" class="btn-back">← Назад</a>
-            <h1>Построение маршрута</h1>
-            <div></div>
-        </div>
+   
+    <a href="/" class="back-btn">BACK</a>
 
-        <div class="controls">
-            <div class="input-group">
-                <label for="from_id">Начальная точка:</label>
-                <input type="number" id="from_id" placeholder="ID начальной точки" required>
+    <div class="builder-box">
+
+        <h1 class="title">FIND EXPERIENCE</h1>
+
+        <div class="inputs-row">
+            <div class="input-block">
+                <label>START</label>
+                <input id="from_id" type="number" placeholder="ID начальной точки">
             </div>
 
-            <div class="input-group">
-                <label for="to_id">Конечная точка:</label>
-                <input type="number" id="to_id" placeholder="ID конечной точки" required>
+            <div class="input-block">
+                <label>FINISH</label>
+                <input id="to_id" type="number" placeholder="ID конечной точки">
             </div>
-
-            <button id="findRoute" class="btn btn-primary">Найти маршрут</button>
         </div>
 
-        <div id="result" class="result-container" style="display:none;">
-            <h2>Результат маршрута</h2>
-            <div id="resultContent" class="result-content"></div>
+        <button id="findRoute" class="generate-btn">GENERATE</button>
+
+        <div id="error" class="error" style="display:none;">
+            <p id="errorMessage"></p>
         </div>
 
         <div id="loading" class="loading" style="display:none;">
             <p>Поиск маршрута...</p>
         </div>
 
-        <div id="error" class="error" style="display:none;">
-            <p id="errorMessage"></p>
+        <div id="result" class="result-block" style="display:none;">
+            <h2>RESULT</h2>
+            <div id="resultContent"></div>
         </div>
+
     </div>
 
     <script>
         function escapeHtml(unsafe) {
-            if (unsafe === null || unsafe === undefined) return "";
+            if (!unsafe) return "";
             return String(unsafe)
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
@@ -53,19 +54,12 @@
                 .replace(/'/g, "&#039;");
         }
 
-        document.getElementById('findRoute').addEventListener('click', async function() {
+        document.getElementById('findRoute').addEventListener('click', async () => {
             const fromId = document.getElementById('from_id').value;
             const toId = document.getElementById('to_id').value;
 
-            if (!fromId || !toId) {
-                showError('Пожалуйста, укажите обе точки');
-                return;
-            }
-
-            if (fromId === toId) {
-                showError('Начальная и конечная точки должны быть разными');
-                return;
-            }
+            if (!fromId || !toId) return showError('please, determ 2 points');
+            if (fromId === toId) return showError('start and finish points must be differente');
 
             showLoading(true);
             hideError();
@@ -76,23 +70,23 @@
                 const data = await response.json();
 
                 if (!response.ok) {
-                    showError(data.detail || 'Ошибка при поиске маршрута');
+                    showError(data.detail || 'ERROR of finding a route');
                     return;
                 }
 
                 displayResult(data);
             } catch (error) {
-                showError('Ошибка связи с сервером: ' + error.message);
+                showError('ERROR: can`t connect to server' + error.message);
             } finally {
                 showLoading(false);
             }
         });
 
-        document.getElementById('from_id').addEventListener('keypress', function(e) {
+        document.getElementById('from_id').addEventListener('keypress', e => {
             if (e.key === 'Enter') document.getElementById('findRoute').click();
         });
 
-        document.getElementById('to_id').addEventListener('keypress', function(e) {
+        document.getElementById('to_id').addEventListener('keypress', e => {
             if (e.key === 'Enter') document.getElementById('findRoute').click();
         });
 
@@ -101,25 +95,29 @@
             let html = '';
 
             if (data.points && data.points.length) {
-                html += '<ol class="point-list">';
                 data.points.forEach((p, idx) => {
-                    const name = escapeHtml(p.name || `Точка ${p.id}`);
-                    const id = escapeHtml(p.id);
-                    const lat = p.lat !== null && p.lat !== undefined ? escapeHtml(p.lat) : '—';
-                    const lon = p.lon !== null && p.lon !== undefined ? escapeHtml(p.lon) : '—';
-                    const elev = p.elevation !== null && p.elevation !== undefined ? escapeHtml(p.elevation) + ' км' : '—';
-                    const cat = escapeHtml(p.category || '—');
+                    html += `
+                        <div class="point-card">
+                            <div class="point-title">
+                                <div class="point-number">${idx + 1}</div>
+                                ${escapeHtml(p.name)}
+                                <span style="opacity:0.8">· ID: ${p.id}</span>
+                            </div>
 
-                    html += `<li class="point-item">
-                        <div class="point-header"><strong>${idx + 1}. ${name}</strong> <span class="point-id">ID: ${id}</span></div>
-                        <div class="point-meta">Координаты: ${lat}, ${lon} · Высота: ${elev} · Категория: ${cat}</div>
-                    </li>`;
+                            <div class="point-info">
+                                <span>🛰️coord: <b>${p.lat}, ${p.lon}</b></span>
+                                <span>🏔️high: <b>${p.elevation} м</b></span>
+                                <span>⛺type: <b>${escapeHtml(p.category)}</b></span>
+                            </div>
+                        </div>`;
                 });
-                html += '</ol>';
 
-                html += `<div class="summary">Дистанция: <strong>${escapeHtml(data.distance_km)}</strong> км — Набор высоты: <strong>${escapeHtml(data.elevation_gain_m)}</strong> м</div>`;
-            } else {
-                html = `<pre>${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
+                html += `
+                    <div class="summary-box">
+                        Дистанция: <b>${escapeHtml(data.distance_km)} км</b>
+                        &nbsp;•&nbsp;
+                        Набор высоты: <b>${escapeHtml(data.elevation_gain_m)} м</b>
+                    </div>`;
             }
 
             resultContent.innerHTML = html;
@@ -130,15 +128,8 @@
             document.getElementById('errorMessage').textContent = message;
             document.getElementById('error').style.display = 'block';
         }
-
-        function hideError() {
-            document.getElementById('error').style.display = 'none';
-        }
-
-        function hideResult() {
-            document.getElementById('result').style.display = 'none';
-        }
-
+        function hideError() { document.getElementById('error').style.display = 'none'; }
+        function hideResult() { document.getElementById('result').style.display = 'none'; }
         function showLoading(show) {
             document.getElementById('loading').style.display = show ? 'block' : 'none';
         }
