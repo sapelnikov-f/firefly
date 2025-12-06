@@ -12,5 +12,5 @@ class DataLoader:
         return response.data
 
     def load_segments(self):
-        response = self.supabase.table("segments_test").select("id, start_poi, end_poi, length_m, elev_gain").execute()
+        response = self.supabase.table("segments_test").select("id, start_poi, end_poi, length_km, elev_gain").execute()
         return response.data

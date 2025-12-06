@@ -7,3 +7,4 @@ __pycache__/
 *.log
 .vscode/
 **/.DS_Store
+tester_function.py

@@ -107,7 +107,7 @@
                     const id = escapeHtml(p.id);
                     const lat = p.lat !== null && p.lat !== undefined ? escapeHtml(p.lat) : '—';
                     const lon = p.lon !== null && p.lon !== undefined ? escapeHtml(p.lon) : '—';
-                    const elev = p.elevation !== null && p.elevation !== undefined ? escapeHtml(p.elevation) + ' м' : '—';
+                    const elev = p.elevation !== null && p.elevation !== undefined ? escapeHtml(p.elevation) + ' км' : '—';
                     const cat = escapeHtml(p.category || '—');
 
                     html += `<li class="point-item">
@@ -117,7 +117,7 @@
                 });
                 html += '</ol>';
 
-                html += `<div class="summary">Дистанция: <strong>${escapeHtml(data.distance_m)}</strong> м — Набор высоты: <strong>${escapeHtml(data.elevation_gain_m)}</strong> м</div>`;
+                html += `<div class="summary">Дистанция: <strong>${escapeHtml(data.distance_km)}</strong> км — Набор высоты: <strong>${escapeHtml(data.elevation_gain_m)}</strong> м</div>`;
             } else {
                 html = `<pre>${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
             }
