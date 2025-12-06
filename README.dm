@@ -11,7 +11,7 @@ uvicorn app.main:app --reload
 cd firefly(Перейти в папку проекта, если еще не в ней)
 python -m venv venv  !(если виртуальная среда не установлена)
 .\venv\Scripts\activate.bat
-pip install -r requirements.txt
+pip install -r .\requirements.txt
 uvicorn app.main:app --reload 
 
 Далее переходите по ссылке в выводе терминала
