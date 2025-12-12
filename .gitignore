@@ -9,3 +9,4 @@ __pycache__/
 **/.DS_Store
 tester_function.py
 .\venv
+parsing/llm_config.py
