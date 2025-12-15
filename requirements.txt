@@ -7,3 +7,5 @@ pydantic
 supabase
 openai
 beautifulsoup4
+osmnx
+scipy

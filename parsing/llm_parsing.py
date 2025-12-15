@@ -16,14 +16,15 @@ system_prompt = """
 
 ## 1. ИЗВЛЕЧЕНИЕ ТОЧЕК МАРШРУТА
 
-Выяви все географические объекты и точки остановок. Для каждой точки определи:
-
-- **Название** (имя собственное или описательное: "поляна у ручья", "Перевал Орлиный")
-- **Тип** (озеро, родник, поляна, стоянка, ночёвка, перевал, река, хребет, водопад, вершина, приют, обрыв, пещера, памятник и т.д.)
-- **Краткое описание** (1–2 предложения: ключевая характеристика, причина упоминания, внешний вид)
+Выяви все географические объекты и точки остановок. Объекты должны быть точечными, никаких крупных территорий. Для каждой точки определи:
+- **id** — уникальный идентификатор (можно просто порядковый номер, начиная с 1)
+- **Название** (имя собственное или описательное: "поляна у ручья", "Перевал Орлиный")(Если у точки есть собственное имя записывай его без типа объекта, например "Перевал Орлиный" → "Орлиный")
+- **Тип** (озеро, родник, поляна, стоянка, ночёвка, перевал, водопад, вершина, приют, обрыв, пещера, памятник и т.д.)
+- **Описание** (краткое, 1-2 предложения, что это за точка)
+  - Если это перевал, то вставь полное описание перевала из текста.
 - **Категория сложности** — ОБЯЗАТЕЛЬНО ДЛЯ ПЕРЕВАЛОВ.
-  - Если в тексте указана категория (например, 1А или 3Б) — используй её.
-  - Если категория не указана — присвоить значение и записать **"None"**.
+  - Если в тексте указана категория (например, 1А или 3Б) — используй её. Существуют категории(н/к — некатегорийный, 1А, 1Б, 2А, 2Б, 3А, 3Б, 4А, 4Б, 5А, 5Б).
+  - Если категория не указана, но перевал описан как простой (без технических сложностей), проставь "н/к".
   - Для любых других типов объектов этот параметр **не добавляется**.
 
 ---
@@ -32,6 +33,7 @@ system_prompt = """
 
 Раздели весь маршрут на последовательные сегменты.  
 **Каждый сегмент — это путь строго между двумя точками: начальной и конечной.**
+Не учитывай сегменты включающее города или крупные населённые пункты.
 
  Если в описании движение идёт через несколько точек подряд, разбивай на цепочку сегментов:
 
@@ -46,8 +48,9 @@ system_prompt = """
 
 - **Порядковый номер** (1, 2, 3, …)
 - **Точки_в_сегменте** — строго массив из ДВУХ названий:  
-  `[ "точка начала", "точка конца" ]`
-- **Описание сегмента** — краткое объяснение, что происходило между этими двумя точками.
+  `[ "id точки начала", "id точки конца" ]`(id бери из списка точек маршрута)
+- **Описание сегмента** — описание пути между дву точками максимально приближенное к оригинальному тексту.
+- **Наличие ночевки** — если в сегменте была ночевка, начался в описании новый день — добавь в поле "is_camp": true, иначе — "is_camp": false.
 - **Сложность (вес)** — оценка от 1 до 5:
 
     *1 (очень легко):* ровная тропа, препятствий почти нет  
@@ -76,6 +79,7 @@ system_prompt = """
       "index": 1,
       "start_end": ["...", "..."],
       "segment_description": "...",
+      "is_camp",
       "difficulty": 3
     }
   ]
@@ -96,7 +100,7 @@ def call_openai(system_prompt: str, user_text: str) -> str:
     client = OpenAI(api_key=API_KEY)
 
     response = client.chat.completions.create(
-        model="gpt-4.1-mini",  # можешь заменить на gpt-4.1, gpt-4.1-turbo, o3-mini
+        model="gpt-4.1-mini", 
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_text},
@@ -108,7 +112,7 @@ def call_openai(system_prompt: str, user_text: str) -> str:
 
 
 if __name__ == "__main__":
-    url = "https://skitalets.ru/tourism-types/all/otchet-o-pokhode-1-k-s-po-z-kavkazu-arkhyz-teberda"
+    url = "https://skitalets.ru/tourism-types/all/otchet-o-gornom-pokhode-1-k-s-po-zapadnomu-kavkazu-arkhyz"
 
     if not url.startswith(("http://", "https://")):
         print("Неверная ссылка.")
@@ -116,17 +120,31 @@ if __name__ == "__main__":
 
     full_text = fetch_page_text(url)
 
-    user_text = full_text[:5000]  # как и раньше — ограничение
+    answer_text = call_openai(system_prompt, full_text)
 
-    answer_text = call_openai(system_prompt, user_text)
 
-    # Попробуем распарсить JSON
     try:
         parsed = json.loads(answer_text)
     except json.JSONDecodeError:
         parsed = {"error": "LLM did not return valid JSON", "raw": answer_text}
 
-    with open("parsing/output.json", "w", encoding="utf-8") as f:
-        json.dump(parsed, f, ensure_ascii=False, indent=2)
+    pois_file = 'parsing/results/pois.json'
+    segments_file = 'parsing/results/segments.json'
 
-    print("Готово! Ответ сохранён в output.json")
+
+    required_fields = ["category", "description"]
+
+    pois = parsed["points"]
+    segments = parsed["segments"]
+
+    for poi in pois:
+        poi.setdefault("category", None)
+        poi.setdefault("description", None)
+      
+
+
+    with open(pois_file, "w", encoding="utf-8") as f:
+        json.dump(pois, f, ensure_ascii=False, indent=2)
+
+    with open(segments_file, "w", encoding="utf-8") as f:
+        json.dump(segments, f, ensure_ascii=False, indent=2)
