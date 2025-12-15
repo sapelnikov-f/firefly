@@ -18,7 +18,7 @@ system_prompt = """
 
 Выяви все географические объекты и точки остановок. Объекты должны быть точечными, никаких крупных территорий. Для каждой точки определи:
 - **id** — уникальный идентификатор (можно просто порядковый номер, начиная с 1)
-- **Название** (имя собственное или описательное: "поляна у ручья", "Перевал Орлиный")(Если у точки есть собственное имя записывай его без типа объекта, например "Перевал Орлиный" → "Орлиный")
+- **Название** (имя собственное или описательное: "поляна у ручья", "Перевал Орлиный")(Если у точки есть собственное имя записывай его без типа объекта, например "Перевал Орлиный" → "Орлиный")**Не добавляй слова типа "перевал", "озеро" и т.д. в название.**
 - **Тип** (озеро, родник, поляна, стоянка, ночёвка, перевал, водопад, вершина, приют, обрыв, пещера, памятник и т.д.)
 - **Описание** (краткое, 1-2 предложения, что это за точка)
   - Если это перевал, то вставь полное описание перевала из текста.
@@ -112,7 +112,10 @@ def call_openai(system_prompt: str, user_text: str) -> str:
 
 
 if __name__ == "__main__":
-    url = "https://skitalets.ru/tourism-types/all/otchet-o-gornom-pokhode-1-k-s-po-zapadnomu-kavkazu-arkhyz"
+    
+    with open("parsing/reports_urls.txt", "r", encoding="utf-8") as f:
+        urls = [line.strip() for line in f if line.strip()]
+    url = urls[1]
 
     if not url.startswith(("http://", "https://")):
         print("Неверная ссылка.")
@@ -128,8 +131,8 @@ if __name__ == "__main__":
     except json.JSONDecodeError:
         parsed = {"error": "LLM did not return valid JSON", "raw": answer_text}
 
-    pois_file = 'parsing/results/pois.json'
-    segments_file = 'parsing/results/segments.json'
+    pois_file = 'parsing/results/pois3.json'
+    segments_file = 'parsing/results/segments3.json'
 
 
     required_fields = ["category", "description"]

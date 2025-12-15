@@ -18,7 +18,7 @@ def build_route(segment):
     start = pois[int(start_id) - 1]
     end = pois[int(end_id) - 1]
 
-    print(f"Маршрут: {start['coords']} → {end['coords']}")
+    print(f"Маршрут: {start['name']} → {end['name']}")
 
     # ищем ближайшие РЁБРА, а не узлы
     start_edge = ox.distance.nearest_edges(
@@ -36,20 +36,39 @@ def build_route(segment):
     start_node = start_edge[0]
     end_node = end_edge[1]
 
-    print("Стартовый узел:", G.nodes[start_node]['y'], G.nodes[start_node]['x'])
-    print("Конечный узел:", G.nodes[end_node]['y'], G.nodes[end_node]['x'])
+ 
 
     route = nx.shortest_path(G, start_node, end_node, weight="length")
-    length = nx.shortest_path_length(G, start_node, end_node, weight="length")
 
-    return route, length
+    coords = [(G.nodes[n]['x'], G.nodes[n]['y']) for n in route]
 
-# Длина пути
-    path_length = nx.shortest_path_length(G, start_node, end_node, weight='length')
-    print(f"Длина маршрута: {path_length:.2f} метров")
-    # кратчайший путь 
+    distance_m = sum(G.edges[u, v, 0]['length'] for u, v in zip(route[:-1], route[1:]))
+
+    line = LineString(coords)
+    segment["geom"] = mapping(line)  # GeoJSON LineString
+    segment["distance_m"] = distance_m
+
+    
+    return segment
+
+
 
 with open("parsing/results/segments.json", "r", encoding="utf-8") as f:
     segments = json.load(f)
 
-print(build_route(segments[0])) 
+
+
+
+segments_with_routes = []
+for seg in segments:
+    seg_start = seg["start_end"][0]
+    seg_end = seg["start_end"][1]
+    start_poi = pois[int(seg_start)-1]
+    end_poi = pois[int(seg_end)-1]
+    if start_poi["coords"][0] == None or end_poi["coords"][0] == None:
+        print(f"Пропускаем сегмент {seg['index']} из-за отсутствующих координат.")
+        continue    
+    seg_with_route = build_route(seg)
+    segments_with_routes.append(seg_with_route)
+with open("parsing/results/segments_routes.json", "w", encoding="utf-8") as f:
+    json.dump(segments_with_routes, f, ensure_ascii=False, indent=2)

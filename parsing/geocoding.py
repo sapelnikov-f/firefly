@@ -26,7 +26,7 @@ def geocode(name):
     return None, None
 
 
-with open("parsing/results/pois.json", "r", encoding="utf-8") as f:
+with open("parsing/results/pois3.json", "r", encoding="utf-8") as f:
     pois = json.load(f)
 
 for point in pois:
@@ -35,5 +35,5 @@ for point in pois:
  
     time.sleep(1)  # ОБЯЗАТЕЛЬНО: лимит Nominatim
 
-with open("parsing/results/pois_with_coords.json", "w", encoding="utf-8") as f:
+with open("parsing/results/pois3_with_coords.json", "w", encoding="utf-8") as f:
     json.dump(pois, f, ensure_ascii=False, indent=2)
