@@ -26,7 +26,7 @@ system_prompt = """
   - Если в тексте указана категория (например, 1А или 3Б) — используй её. Существуют категории(н/к — некатегорийный, 1А, 1Б, 2А, 2Б, 3А, 3Б, 4А, 4Б, 5А, 5Б).
   - Если категория не указана, но перевал описан как простой (без технических сложностей), проставь "н/к".
   - Для любых других типов объектов этот параметр **не добавляется**.
-
+ 
 ---
 
 ## 2. АНАЛИЗ СЕГМЕНТОВ И ИХ СЛОЖНОСТИ
@@ -115,7 +115,10 @@ if __name__ == "__main__":
     
     with open("parsing/reports_urls.txt", "r", encoding="utf-8") as f:
         urls = [line.strip() for line in f if line.strip()]
-    url = urls[1]
+    
+    
+    report = 1
+    url = urls[report - 1]
 
     if not url.startswith(("http://", "https://")):
         print("Неверная ссылка.")
@@ -131,8 +134,8 @@ if __name__ == "__main__":
     except json.JSONDecodeError:
         parsed = {"error": "LLM did not return valid JSON", "raw": answer_text}
 
-    pois_file = 'parsing/results/pois3.json'
-    segments_file = 'parsing/results/segments3.json'
+    pois_file = f'parsing/results/rep{report}/pois{report}.json'
+    segments_file = f'parsing/results/rep{report}/segments{report}.json'
 
 
     required_fields = ["category", "description"]

@@ -25,7 +25,8 @@ def geocode(name):
         return float(data[0]["lat"]), float(data[0]["lon"])
     return None, None
 
-
+report = 1
+    
 with open("parsing/results/pois3.json", "r", encoding="utf-8") as f:
     pois = json.load(f)
 
