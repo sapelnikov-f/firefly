@@ -112,7 +112,6 @@ body {
     }
 }
 
-/* BACKGROUND SECTION */
 .background-section {
     position: relative;
     width: 100%;
@@ -146,7 +145,6 @@ body {
     padding: 40px 20px;
 }
 
-/* Cards grid */
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -182,7 +180,6 @@ body {
     opacity: 0.9;
 }
 
-/* TOP BUTTONS */
 .routes-btn {
     position: absolute;
     top: 40px;
@@ -205,7 +202,7 @@ body {
 }
 
 .about-btn {
-    right: 280px;
+    right: 100px;
     background: linear-gradient(90deg, #4d8dff, #8f5bff, #ff4ebd, #ff944e, #4d8dff);
     animation: glowShift 6s ease infinite;
     background-size: 300%;
@@ -217,7 +214,6 @@ body {
     100% { background-position: 0% }
 }
 
-/* FAQ SECTION */
 .faq-wrapper {
     position: relative;
     width: 100%;
