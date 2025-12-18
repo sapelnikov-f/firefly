@@ -14,8 +14,6 @@
 
     <h1 class="title">FIND EXPERIENCE</h1>
 
-    <!-- ===== DIFFICULTY SELECT (НЕ ТРОГАЕМ) ===== -->
-
     <div class="difficulty-select">
         <div class="difficulty-card active" data-level="1">
             <span class="card-text">VERY EASY</span>
@@ -34,8 +32,6 @@
         </div>
     </div>
 
-    <!-- ===== DAYS SELECT (НЕ ТРОГАЕМ) ===== -->
-
     <div class="days-select">
         <div class="days-label-row">
             <span class="days-label">TRIP DURATION</span>
@@ -52,8 +48,6 @@
             class="days-slider"
         />
     </div>
-
-    <!-- ===== INTEREST POINTS ===== -->
 
     <div class="points-select">
 
@@ -114,8 +108,6 @@
 </div>
 
 <script>
-/* ===== DIFFICULTY LOGIC ===== */
-
 const cards = document.querySelectorAll('.difficulty-card');
 
 cards.forEach(card => {
@@ -126,8 +118,6 @@ cards.forEach(card => {
         updateDaysLimits();
     });
 });
-
-/* ===== ACCENT COLORS ===== */
 
 const difficultyColors = {
     1: '#6BFFB8',
@@ -146,8 +136,6 @@ function updateAccentColor() {
 
     document.documentElement.style.setProperty('--accent-color', color);
 }
-
-/* ===== DAYS LOGIC ===== */
 
 const daysSlider = document.getElementById('daysSlider');
 const daysValue  = document.getElementById('daysValue');
@@ -199,8 +187,6 @@ function updateDaysSliderFill() {
 
 daysSlider.addEventListener('input', updateDaysValue);
 
-/* ===== INTEREST POINTS LOGIC ===== */
-
 const pointsToggle = document.getElementById('pointsToggle');
 const pointsDropdown = document.getElementById('pointsDropdown');
 const pointsCheckboxes = pointsDropdown.querySelectorAll('input[type="checkbox"]');
@@ -223,7 +209,6 @@ pointsCheckboxes.forEach(cb => {
     });
 });
 
-/* INIT */
 updateAccentColor();
 updateDaysLimits();
 </script>
