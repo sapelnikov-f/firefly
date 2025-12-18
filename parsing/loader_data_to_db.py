@@ -28,17 +28,26 @@ for p in pois.values():
 # batch insert
 supabase.table("pois").insert(rows).execute()
 
-
+rows = []
 with open("parsing/results/unique_data/segments_with_routes.json", encoding="utf-8") as f:
     segments = json.load(f)
-
+it = 1
 for seg in segments:
+  
     start_id, end_id = seg["start_end"]
-    distance = seg["distance_m"]
+    coords = seg["geom"]["coordinates"]
+    line = LineString(coords)
+    rows.append({
+        "id": it,
+        "start_id" : start_id,
+        "end_id" : end_id,
+        "difficulty": seg["difficulty"],
+        "is_camp": seg["is_camp"],
+        "distanсe_m": seg["distance_m"],
+        "segment_description": seg["segment_description"],
+        "geom": f"SRID=4326;{line.wkt}"
+    })
+    it +=1
 
-    # Обновляем существующую строку по start_id и end_id
-    supabase.table("segments").update({
-        "distance_m": distance
-    }).eq("start_id", start_id).eq("end_id", end_id).execute()
 
-
+supabase.table("segments").insert(rows).execute()
