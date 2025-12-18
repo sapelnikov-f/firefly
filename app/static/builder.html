@@ -15,36 +15,32 @@
     <h1 class="title">FIND EXPERIENCE</h1>
 
     <div class="difficulty-select">
-        <div class="difficulty-card active" data-level="1">
-            <span class="card-text">VERY EASY</span>
-        </div>
-        <div class="difficulty-card" data-level="2">
+
+        <div class="difficulty-card" data-level="1">
             <span class="card-text">EASY</span>
         </div>
-        <div class="difficulty-card" data-level="3">
+        <div class="difficulty-card" data-level="2">
             <span class="card-text">MEDIUM</span>
         </div>
-        <div class="difficulty-card" data-level="4">
+        <div class="difficulty-card" data-level="3">
             <span class="card-text">HARD</span>
         </div>
-        <div class="difficulty-card" data-level="5">
-            <span class="card-text">VERY HARD</span>
-        </div>
+
     </div>
 
     <div class="days-select">
         <div class="days-label-row">
             <span class="days-label">TRIP DURATION</span>
-            <span class="days-value"><span id="daysValue">3</span> DAYS</span>
+            <span class="days-value"><span id="daysValue">2</span> DAYS</span>
         </div>
 
         <input
             type="range"
             id="daysSlider"
             min="1"
-            max="21"
+            max="10"
             step="1"
-            value="3"
+            value="2"
             class="days-slider"
         />
     </div>
@@ -121,10 +117,8 @@ cards.forEach(card => {
 
 const difficultyColors = {
     1: '#6BFFB8',
-    2: '#BFFF6B',
-    3: '#FFD966',
-    4: '#FF9F5A',
-    5: '#FF5A5A'
+    2: '#FFD966',
+    3: '#FF5A5A'
 };
 
 function updateAccentColor() {
@@ -143,9 +137,7 @@ const daysValue  = document.getElementById('daysValue');
 const daysRules = {
     1: { min: 1,  max: 4  },
     2: { min: 3,  max: 6  },
-    3: { min: 5,  max: 10 },
-    4: { min: 9,  max: 14 },
-    5: { min: 12, max: 21 }
+    3: { min: 5,  max: 10 }
 };
 
 function getActiveDifficulty() {
