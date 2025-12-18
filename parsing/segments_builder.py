@@ -5,21 +5,21 @@ from shapely.ops import linemerge
 import json
 
 REGION = " Karachay-Cherkessia, Russia"
-region = (43.345, 40.699,43.6559, 41.6904)
-report = 3
+
+
 
 print("Загружаем граф OSM...")
-G = ox.graph_from_bbox(region, network_type="walk", simplify=False)
-with open(f"parsing/results/rep{report}/pois{report}_with_coords.json", "r", encoding="utf-8") as f:
+G = ox.graph_from_place(REGION, network_type="walk", simplify=False)
+with open("parsing/results/unique_data/pois_only_with_coords.json", "r", encoding="utf-8") as f:
     pois = json.load(f)
+
+
 def build_route(segment):
     start_id, end_id = segment["start_end"]
-    start = pois[int(start_id) - 1]
-    end = pois[int(end_id) - 1]
+    start = pois[str(start_id)]
+    end = pois[str(end_id)]
 
-    print(f"Маршрут: {start['name']} → {end['name']}")
-
-    # ищем ближайшие РЁБРА, а не узлы
+    
     start_edge = ox.distance.nearest_edges(
         G,
         X=start["coords"][1],
@@ -31,7 +31,7 @@ def build_route(segment):
         Y=end["coords"][0]
     )
 
-    # берём узлы рёбер
+
     start_node = start_edge[0]
     end_node = end_edge[1]
 
@@ -44,7 +44,7 @@ def build_route(segment):
     distance_m = sum(G.edges[u, v, 0]['length'] for u, v in zip(route[:-1], route[1:]))
 
     line = LineString(coords)
-    segment["geom"] = mapping(line)  # GeoJSON LineString
+    segment["geom"] = mapping(line) 
     segment["distance_m"] = distance_m
 
     
@@ -52,22 +52,22 @@ def build_route(segment):
 
 
 
-with open(f"parsing/results/rep{report}/segments{report}.json", "r", encoding="utf-8") as f:
+with open("parsing/results/unique_data/segments_with_coords_only.json", "r", encoding="utf-8") as f:
     segments = json.load(f)
 
 
-print(build_route(segments[0]))
 
-# segments_with_routes = []
-# for seg in segments:
-#     seg_start = seg["start_end"][0]
-#     seg_end = seg["start_end"][1]
-#     start_poi = pois[int(seg_start)-1]
-#     end_poi = pois[int(seg_end)-1]
-#     if start_poi["coords"][0] == None or end_poi["coords"][0] == None:
-#         print(f"Пропускаем сегмент {seg['index']} из-за отсутствующих координат.")
-#         continue    
-#     seg_with_route = build_route(seg)
-#     segments_with_routes.append(seg_with_route)
-# with open("parsing/results/segments3_routes.json", "w", encoding="utf-8") as f:
-#     json.dump(segments_with_routes, f, ensure_ascii=False, indent=2)
+segments_with_routes = []
+for seg in segments:
+    seg_start = seg["start_end"][0]
+    seg_end = seg["start_end"][1]
+    start_poi = pois[str(seg_start)]
+    end_poi = pois[str(seg_end)]
+    if start_poi["coords"][0] == None or end_poi["coords"][0] == None:
+        print(f"Пропускаем сегмент {seg['id']} из-за отсутствующих координат.")
+        continue    
+    seg_with_route = build_route(seg)
+    segments_with_routes.append(seg_with_route)
+with open("parsing/results/unique_data/segments_with_routes.json", "w", encoding="utf-8") as f:
+    json.dump(segments_with_routes, f, ensure_ascii=False, indent=2)
+

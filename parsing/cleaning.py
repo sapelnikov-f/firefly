@@ -1,5 +1,7 @@
 import json
 
+
+#Скрипт чистит json файлы полученные после парсинга llm
 for i in range (1,11):
     with open(f"parsing/results/rep{i}/segments{i}.json", "r") as f:
         segments = json.load(f)

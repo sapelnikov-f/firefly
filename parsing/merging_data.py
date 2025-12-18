@@ -1,6 +1,6 @@
 import json
 
-
+#Скрипт обьединяет все таблицы отчетов в один файл, а затем удаляет все повторяющиеся точки
 all_pois = []
 id_map = []  
 new_id = 1
@@ -83,7 +83,7 @@ for s in all_segments:
 with open("parsing/results/unique_data/all_pois_unique.json", "w", encoding="utf-8") as f:
     json.dump(unique_pois, f, ensure_ascii=False, indent=2)
 
-with open("parsing/results/unique_data/all_segments_updated.json", "w", encoding="utf-8") as f:
+with open("parsing/results/unique_data/all_segments_unique.json", "w", encoding="utf-8") as f:
     json.dump(all_segments, f, ensure_ascii=False, indent=2)
 
 

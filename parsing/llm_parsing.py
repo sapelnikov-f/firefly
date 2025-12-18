@@ -146,8 +146,7 @@ if __name__ == "__main__":
     for poi in pois:
         poi.setdefault("category", None)
         poi.setdefault("description", None)
-      
-
+  
 
     with open(pois_file, "w", encoding="utf-8") as f:
         json.dump(pois, f, ensure_ascii=False, indent=2)
