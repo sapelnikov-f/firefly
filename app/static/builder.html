@@ -1,138 +1,232 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Firefly — Построение маршрута</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firefly — Find Experience</title>
     <link rel="stylesheet" href="/static/css/routes.css">
 </head>
 <body>
-   
-    <a href="/" class="back-btn">BACK</a>
 
-    <div class="builder-box">
+<a href="/" class="back-btn">BACK</a>
 
-        <h1 class="title">FIND EXPERIENCE</h1>
+<div class="builder-box">
 
-        <div class="inputs-row">
-            <div class="input-block">
-                <label>START</label>
-                <input id="from_id" type="number" placeholder="ID начальной точки">
-            </div>
+    <h1 class="title">FIND EXPERIENCE</h1>
 
-            <div class="input-block">
-                <label>FINISH</label>
-                <input id="to_id" type="number" placeholder="ID конечной точки">
-            </div>
+    <!-- ===== DIFFICULTY SELECT (НЕ ТРОГАЕМ) ===== -->
+
+    <div class="difficulty-select">
+        <div class="difficulty-card active" data-level="1">
+            <span class="card-text">VERY EASY</span>
         </div>
-
-        <button id="findRoute" class="generate-btn">GENERATE</button>
-
-        <div id="error" class="error" style="display:none;">
-            <p id="errorMessage"></p>
+        <div class="difficulty-card" data-level="2">
+            <span class="card-text">EASY</span>
         </div>
-
-        <div id="loading" class="loading" style="display:none;">
-            <p>Поиск маршрута...</p>
+        <div class="difficulty-card" data-level="3">
+            <span class="card-text">MEDIUM</span>
         </div>
-
-        <div id="result" class="result-block" style="display:none;">
-            <h2>RESULT</h2>
-            <div id="resultContent"></div>
+        <div class="difficulty-card" data-level="4">
+            <span class="card-text">HARD</span>
         </div>
-
+        <div class="difficulty-card" data-level="5">
+            <span class="card-text">VERY HARD</span>
+        </div>
     </div>
 
-    <script>
-        function escapeHtml(unsafe) {
-            if (!unsafe) return "";
-            return String(unsafe)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+    <!-- ===== DAYS SELECT (НЕ ТРОГАЕМ) ===== -->
+
+    <div class="days-select">
+        <div class="days-label-row">
+            <span class="days-label">TRIP DURATION</span>
+            <span class="days-value"><span id="daysValue">3</span> DAYS</span>
+        </div>
+
+        <input
+            type="range"
+            id="daysSlider"
+            min="1"
+            max="21"
+            step="1"
+            value="3"
+            class="days-slider"
+        />
+    </div>
+
+    <!-- ===== INTEREST POINTS ===== -->
+
+    <div class="points-select">
+
+        <div class="points-header" id="pointsToggle">
+            <span class="points-label">INTEREST POINTS</span>
+            <span class="points-counter">
+                <span id="pointsCount">0</span>/3
+            </span>
+        </div>
+
+        <div class="points-dropdown" id="pointsDropdown">
+
+            <label class="point-item">
+                <input type="checkbox" value="Архыз">
+                <span>Архыз</span>
+            </label>
+
+            <label class="point-item">
+                <input type="checkbox" value="Баритовый">
+                <span>Баритовый</span>
+            </label>
+
+            <label class="point-item">
+                <input type="checkbox" value="Запрудное">
+                <span>Запрудное</span>
+            </label>
+
+            <label class="point-item">
+                <input type="checkbox" value="Бурное">
+                <span>Бурное</span>
+            </label>
+
+            <label class="point-item">
+                <input type="checkbox" value="Агур Северный">
+                <span>Агур Северный</span>
+            </label>
+
+            <label class="point-item">
+                <input type="checkbox" value="Мылгвал">
+                <span>Мылгвал</span>
+            </label>
+
+            <label class="point-item">
+                <input type="checkbox" value="Перевальное">
+                <span>Перевальное</span>
+            </label>
+
+            <label class="point-item">
+                <input type="checkbox" value="Речепста">
+                <span>Речепста</span>
+            </label>
+
+        </div>
+    </div>
+
+    <button class="generate-btn">GENERATE</button>
+
+</div>
+
+<script>
+/* ===== DIFFICULTY LOGIC ===== */
+
+const cards = document.querySelectorAll('.difficulty-card');
+
+cards.forEach(card => {
+    card.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        updateAccentColor();
+        updateDaysLimits();
+    });
+});
+
+/* ===== ACCENT COLORS ===== */
+
+const difficultyColors = {
+    1: '#6BFFB8',
+    2: '#BFFF6B',
+    3: '#FFD966',
+    4: '#FF9F5A',
+    5: '#FF5A5A'
+};
+
+function updateAccentColor() {
+    const active = document.querySelector('.difficulty-card.active');
+    if (!active) return;
+
+    const level = active.dataset.level;
+    const color = difficultyColors[level];
+
+    document.documentElement.style.setProperty('--accent-color', color);
+}
+
+/* ===== DAYS LOGIC ===== */
+
+const daysSlider = document.getElementById('daysSlider');
+const daysValue  = document.getElementById('daysValue');
+
+const daysRules = {
+    1: { min: 1,  max: 4  },
+    2: { min: 3,  max: 6  },
+    3: { min: 5,  max: 10 },
+    4: { min: 9,  max: 14 },
+    5: { min: 12, max: 21 }
+};
+
+function getActiveDifficulty() {
+    return document.querySelector('.difficulty-card.active').dataset.level;
+}
+
+function updateDaysLimits() {
+    const diff = getActiveDifficulty();
+    const rule = daysRules[diff];
+
+    daysSlider.min = rule.min;
+    daysSlider.max = rule.max;
+
+    if (+daysSlider.value < rule.min) daysSlider.value = rule.min;
+    if (+daysSlider.value > rule.max) daysSlider.value = rule.max;
+
+    updateDaysValue();
+}
+
+function updateDaysValue() {
+    daysValue.textContent = daysSlider.value;
+    updateDaysSliderFill();
+}
+
+function updateDaysSliderFill() {
+    const percent = (daysSlider.value - daysSlider.min) /
+        (daysSlider.max - daysSlider.min) * 100;
+
+    daysSlider.style.background = `
+        linear-gradient(
+            to right,
+            var(--accent-color) 0%,
+            var(--accent-color) ${percent}%,
+            rgba(255,255,255,0.25) ${percent}%,
+            rgba(255,255,255,0.25) 100%
+        )
+    `;
+}
+
+daysSlider.addEventListener('input', updateDaysValue);
+
+/* ===== INTEREST POINTS LOGIC ===== */
+
+const pointsToggle = document.getElementById('pointsToggle');
+const pointsDropdown = document.getElementById('pointsDropdown');
+const pointsCheckboxes = pointsDropdown.querySelectorAll('input[type="checkbox"]');
+const pointsCount = document.getElementById('pointsCount');
+
+pointsToggle.addEventListener('click', () => {
+    pointsDropdown.classList.toggle('open');
+});
+
+pointsCheckboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+        const checked = [...pointsCheckboxes].filter(c => c.checked);
+
+        if (checked.length > 3) {
+            cb.checked = false;
+            return;
         }
 
-        document.getElementById('findRoute').addEventListener('click', async () => {
-            const fromId = document.getElementById('from_id').value;
-            const toId = document.getElementById('to_id').value;
+        pointsCount.textContent = checked.length;
+    });
+});
 
-            if (!fromId || !toId) return showError('please, determ 2 points');
-            if (fromId === toId) return showError('start and finish points must be differente');
+/* INIT */
+updateAccentColor();
+updateDaysLimits();
+</script>
 
-            showLoading(true);
-            hideError();
-            hideResult();
-
-            try {
-                const response = await fetch(`/route?from_id=${fromId}&to_id=${toId}`);
-                const data = await response.json();
-
-                if (!response.ok) {
-                    showError(data.detail || 'ERROR of finding a route');
-                    return;
-                }
-
-                displayResult(data);
-            } catch (error) {
-                showError('ERROR: can`t connect to server' + error.message);
-            } finally {
-                showLoading(false);
-            }
-        });
-
-        document.getElementById('from_id').addEventListener('keypress', e => {
-            if (e.key === 'Enter') document.getElementById('findRoute').click();
-        });
-
-        document.getElementById('to_id').addEventListener('keypress', e => {
-            if (e.key === 'Enter') document.getElementById('findRoute').click();
-        });
-
-        function displayResult(data) {
-            const resultContent = document.getElementById('resultContent');
-            let html = '';
-
-            if (data.points && data.points.length) {
-                data.points.forEach((p, idx) => {
-                    html += `
-                        <div class="point-card">
-                            <div class="point-title">
-                                <div class="point-number">${idx + 1}</div>
-                                ${escapeHtml(p.name)}
-                                <span style="opacity:0.8">· ID: ${p.id}</span>
-                            </div>
-
-                            <div class="point-info">
-                                <span>🛰️coord: <b>${p.lat}, ${p.lon}</b></span>
-                                <span>🏔️high: <b>${p.elevation} м</b></span>
-                                <span>⛺type: <b>${escapeHtml(p.category)}</b></span>
-                            </div>
-                        </div>`;
-                });
-
-                html += `
-                    <div class="summary-box">
-                        Дистанция: <b>${escapeHtml(data.distance_km)} км</b>
-                        &nbsp;•&nbsp;
-                        Набор высоты: <b>${escapeHtml(data.elevation_gain_m)} м</b>
-                    </div>`;
-            }
-
-            resultContent.innerHTML = html;
-            document.getElementById('result').style.display = 'block';
-        }
-
-        function showError(message) {
-            document.getElementById('errorMessage').textContent = message;
-            document.getElementById('error').style.display = 'block';
-        }
-        function hideError() { document.getElementById('error').style.display = 'none'; }
-        function hideResult() { document.getElementById('result').style.display = 'none'; }
-        function showLoading(show) {
-            document.getElementById('loading').style.display = show ? 'block' : 'none';
-        }
-    </script>
 </body>
 </html>

@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ===== BASE ===== */
+
+:root {
+    --accent-color: #6BFFB8;
+}
 
 body {
     margin: 0;
-    padding: 0;
-    background-image: url('/static/photos/fon.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background: url('/static/photos/fon.jpg') center / cover fixed;
     font-family: "BBH Sans Bartle", sans-serif;
     color: white;
 }
@@ -22,198 +25,268 @@ body::before {
 
 .back-btn {
     position: fixed;
-    top: 35px;
-    left: 50px;
-    padding: 12px 32px;
-    font-size: 1.1rem;
-    color: white;
-    text-transform: uppercase;
+    top: 24px;
+    left: 24px;
+    z-index: 100;
+
+    padding: 10px 26px;
+    border-radius: 999px;
+
     text-decoration: none;
+    font-size: 0.85rem;
     letter-spacing: 2px;
-    border-radius: 40px;
+    text-transform: uppercase;
+
+    color: white;
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.25);
     backdrop-filter: blur(12px);
-    transition: 0.3s ease;
-    z-index: 20;
+
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .back-btn:hover {
-    background: rgba(255,255,255,0.25);
-    transform: scale(1.05);
+    background: rgba(255,255,255,0.22);
+    transform: translateY(-1px);
 }
 
+
+/* ===== CONTAINER ===== */
+
 .builder-box {
-    width: 65%;
-    max-width: 950px;
-    margin: 140px auto 60px auto;
-    padding: 45px 55px;
+    width: 70%;
+    max-width: 1000px;
+    margin: 140px auto;
+    padding: 55px;
+    border-radius: 40px;
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(25px);
     border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 35px;
     text-align: center;
-    color: white;
 }
 
 .title {
     font-size: 3rem;
     letter-spacing: 8px;
-    margin-bottom: 60px;
-    text-transform: uppercase;
+    margin-bottom: 70px;
 }
 
-.inputs-row {
+/* ===== DIFFICULTY SELECT (БЕЗ ИЗМЕНЕНИЙ ЛОГИКИ) ===== */
+
+.difficulty-select {
     display: flex;
+    gap: 20px;
     justify-content: space-between;
-    gap: 10%;
-    margin-bottom: 28px;
+    margin-bottom: 70px;
 }
 
-.input-block {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.input-block label {
-    font-size: 1.3rem;
-    color: rgba(255,255,255,0.85);
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.input-block input {
-    width: 100%;
-    padding: 18px 25px;
-    font-size: 1.2rem;
-    color: white;
-    border-radius: 18px;
-    border: 1px solid rgba(255,255,255,0.20);
-    background: rgba(255,255,255,0.10);
-    backdrop-filter: blur(12px);
-    outline: none;
-}
-
-.input-block input::placeholder {
-    color: rgba(255,255,255,0.55);
-}
-
-.generate-btn {
-    margin: 20px auto 0 auto;
-    padding: 18px 70px;
-    font-size: 1rem;
-    color: white;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 20px;
+.difficulty-card {
+    flex: 1;
+    height: 50px;
+    border-radius: 75px;
     cursor: pointer;
-    background: linear-gradient(90deg, #4d8dff, #8f5bff, #ff4ebd, #ff944e, #4d8dff);
-    background-size: 300%;
-    animation: glowShift 6s ease infinite;
-    transition: 0.9s;
-}
-
-.generate-btn:hover {
-    transform: scale(1.05);
-}
-
-@keyframes glowShift {
-    0%   { background-position: 0% }
-    50%  { background-position: 200% }
-    100% { background-position: 0% }
-}
-
-.result-block {
-    margin-top: 50px;
-    padding: 40px;
-    background: rgba(23, 26, 93, 0.08);
-    border-radius: 28px;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.12);
-}
-
-.point-card {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 18px 22px;
-    margin-bottom: 20px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.15);
-    backdrop-filter: blur(12px);
-    font-family: "Inter", sans-serif;
-}
-
-.point-title {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    font-size: 1.25rem;
-    color: white;
-    font-weight: 600;
-}
-
-.point-number {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 1.1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s ease;
 }
 
-.point-info {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+.difficulty-card .card-text {
+    font-family: "DM Sans", sans-serif;
     font-size: 0.95rem;
-    color: rgba(255,255,255,0.9);
-    font-family: "Science Gothic", sans-serif;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: white;
+    transition: color 0.25s ease;
 }
 
-.point-info span {
+.difficulty-card.active {
+    transform: translateY(-2px);
+}
+
+/* ACTIVE COLORS */
+
+.difficulty-card.active {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 18px var(--accent-color);
+}
+
+.difficulty-card.active .card-text {
+    color: var(--accent-color);
+}
+
+/* ===== DAYS SELECT ===== */
+
+.days-select {
+    width: 100%;
+    margin-bottom: 70px;
+}
+
+.days-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.days-label {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.days-value {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    transition: color 0.25s ease;
+}
+
+.days-slider {
+    width: 100%;
+    appearance: none;
+    height: 6px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.25);
+    outline: none;
+}
+
+.days-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+}
+
+/* ===== INTEREST POINTS ===== */
+
+.points-select {
+    width: 100%;
+    margin-bottom: 70px;
+    text-align: left;
+}
+
+.points-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 14px 20px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    cursor: pointer;
+
+    transition: background 0.25s ease;
+}
+
+.points-header:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.points-label {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.points-counter {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+}
+
+.points-dropdown {
+    margin-top: 14px;
+    padding: 18px;
+    border-radius: 24px;
+
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.15);
+
+    display: none;
+}
+
+.points-dropdown.open {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.point-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
 }
 
-.summary-box {
-    margin-top: 35px;
-    padding: 25px 30px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 22px;
-    border: 1px solid rgba(255,255,255,0.15);
-    backdrop-filter: blur(12px);
-    font-size: 1.25rem;
-    text-align: center;
-    font-family: "Inter", sans-serif;
+.point-item input {
+    accent-color: var(--accent-color);
+    cursor: pointer;
 }
 
-.summary-box b {
-    font-size: 1.35rem;
+
+/* ===== BUTTON ===== */
+
+.generate-btn {
+    padding: 18px 90px;
+    font-size: 1rem;
+    font-family: "BBH Sans Bartle", sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    border: none;
+    border-radius: 32px;
+    cursor: pointer;
+
     color: white;
-    font-weight: 700;
+
+    background: linear-gradient(
+        90deg,
+        #4d8dff,
+        #8f5bff,
+        #ff4ebd,
+        #ff944e,
+        #4d8dff
+    );
+    background-size: 300%;
+
+    animation: generateGlow 6s ease infinite;
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.error {
-    background: rgba(255,0,0,0.18);
-    border-left: 4px solid #ff4d4d;
-    padding: 14px;
-    border-radius: 10px;
-    margin-top: 25px;
-    color: #ffb2b2;
+.generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
 }
 
-.loading {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 1.1rem;
+/* ===== GRADIENT ANIMATION ===== */
+
+@keyframes generateGlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
