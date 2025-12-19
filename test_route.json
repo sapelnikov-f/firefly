@@ -1,0 +1,1544 @@
+[
+  {
+    "day": 1,
+    "steps": [
+      {
+        "from": {
+          "id": 143,
+          "name": "Софийская поляна",
+          "category": "поляна",
+          "description": "Поляна с турбазой, конечная точка маршрута перед возвращением в поселок Архыз.",
+          "pass_category": null,
+          "geom": null
+        },
+        "to": {
+          "id": 89,
+          "name": "Архыз",
+          "category": "стоянка",
+          "description": "Стартовая точка маршрута, посёлок в Западном Кавказе.",
+          "pass_category": null,
+          "geom": null
+        },
+        "segment": {
+          "from_id": 143,
+          "to_id": 89,
+          "weight": 1,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 89,
+          "name": "Архыз",
+          "category": "стоянка",
+          "description": "Стартовая точка маршрута, посёлок в Западном Кавказе.",
+          "pass_category": null,
+          "geom": null
+        },
+        "to": {
+          "id": 90,
+          "name": "София",
+          "category": "река",
+          "description": "Река, вдоль которой идёт тропа вверх по течению.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4778226,
+              41.2490954
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 89,
+          "to_id": 90,
+          "weight": 2,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 90,
+          "name": "София",
+          "category": "река",
+          "description": "Река, вдоль которой идёт тропа вверх по течению.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4778226,
+              41.2490954
+            ]
+          }
+        },
+        "to": {
+          "id": 106,
+          "name": "Иркиз",
+          "category": "перевал",
+          "description": "Расположен С-Ю, Софийский хребет, соединяет реки Кашха-Эчкичат и Гаммеш-Чат. Подъем по набитой тропе, склон мелко осыпной. Спуск по травянисто-осыпному склону, тропа крутая в верхней части.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4484367,
+              41.2327201
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 90,
+          "to_id": 106,
+          "weight": 2,
+          "is_camp": true
+        }
+      },
+      {
+        "from": {
+          "id": 106,
+          "name": "Иркиз",
+          "category": "перевал",
+          "description": "Расположен С-Ю, Софийский хребет, соединяет реки Кашха-Эчкичат и Гаммеш-Чат. Подъем по набитой тропе, склон мелко осыпной. Спуск по травянисто-осыпному склону, тропа крутая в верхней части.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4484367,
+              41.2327201
+            ]
+          }
+        },
+        "to": {
+          "id": 91,
+          "name": "Большое Софийское озеро",
+          "category": "озеро",
+          "description": "Группа озёр, часть маршрута перед перевалом Кара-Джаш.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4495727,
+              41.2303908
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 106,
+          "to_id": 91,
+          "weight": 4,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 91,
+          "name": "Большое Софийское озеро",
+          "category": "озеро",
+          "description": "Группа озёр, часть маршрута перед перевалом Кара-Джаш.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4495727,
+              41.2303908
+            ]
+          }
+        },
+        "to": {
+          "id": 90,
+          "name": "София",
+          "category": "река",
+          "description": "Река, вдоль которой идёт тропа вверх по течению.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4778226,
+              41.2490954
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 91,
+          "to_id": 90,
+          "weight": 3,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 90,
+          "name": "София",
+          "category": "река",
+          "description": "Река, вдоль которой идёт тропа вверх по течению.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4778226,
+              41.2490954
+            ]
+          }
+        },
+        "to": {
+          "id": 53,
+          "name": "Таулу",
+          "category": "поляна",
+          "description": "Софийская поляна (поляна Таулу), место ночёвки перед радиальным выходом к Софийским водопадам.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5178705,
+              41.2311817
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 90,
+          "to_id": 53,
+          "weight": 1,
+          "is_camp": true
+        }
+      }
+    ],
+    "stats": {
+      "total_weight": 13,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 2,
+    "steps": [
+      {
+        "from": {
+          "id": 53,
+          "name": "Таулу",
+          "category": "поляна",
+          "description": "Софийская поляна (поляна Таулу), место ночёвки перед радиальным выходом к Софийским водопадам.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5178705,
+              41.2311817
+            ]
+          }
+        },
+        "to": {
+          "id": 108,
+          "name": "Архыз",
+          "category": "поселок",
+          "description": "Карачаево-Черкесский аул, самый верхний поселок долины Большого Зеленчука, начальная и конечная точка маршрута.",
+          "pass_category": null,
+          "geom": null
+        },
+        "segment": {
+          "from_id": 53,
+          "to_id": 108,
+          "weight": 1,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 108,
+          "name": "Архыз",
+          "category": "поселок",
+          "description": "Карачаево-Черкесский аул, самый верхний поселок долины Большого Зеленчука, начальная и конечная точка маршрута.",
+          "pass_category": null,
+          "geom": null
+        },
+        "to": {
+          "id": 104,
+          "name": "Кёльауш",
+          "category": "перевал",
+          "description": "Расположен С-Ю. Без ярко выраженного перевального взлета, тур на крупном камне. Подъем по мелкой осыпи и снежникам. Спуск по тропе на Софийские озера и перевал Иркиз.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4573835,
+              41.2261856
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 108,
+          "to_id": 104,
+          "weight": 1,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 104,
+          "name": "Кёльауш",
+          "category": "перевал",
+          "description": "Расположен С-Ю. Без ярко выраженного перевального взлета, тур на крупном камне. Подъем по мелкой осыпи и снежникам. Спуск по тропе на Софийские озера и перевал Иркиз.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4573835,
+              41.2261856
+            ]
+          }
+        },
+        "to": {
+          "id": 128,
+          "name": "Озеро Кашха-Эчкичат",
+          "category": "озеро",
+          "description": "Горное озеро, место ночевки после перевала Иркиз.",
+          "pass_category": null,
+          "geom": null
+        },
+        "segment": {
+          "from_id": 104,
+          "to_id": 128,
+          "weight": 2,
+          "is_camp": true
+        }
+      },
+      {
+        "from": {
+          "id": 128,
+          "name": "Озеро Кашха-Эчкичат",
+          "category": "озеро",
+          "description": "Горное озеро, место ночевки после перевала Иркиз.",
+          "pass_category": null,
+          "geom": null
+        },
+        "to": {
+          "id": 104,
+          "name": "Кёльауш",
+          "category": "перевал",
+          "description": "Расположен С-Ю. Без ярко выраженного перевального взлета, тур на крупном камне. Подъем по мелкой осыпи и снежникам. Спуск по тропе на Софийские озера и перевал Иркиз.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4573835,
+              41.2261856
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 128,
+          "to_id": 104,
+          "weight": 2,
+          "is_camp": true
+        }
+      },
+      {
+        "from": {
+          "id": 104,
+          "name": "Кёльауш",
+          "category": "перевал",
+          "description": "Расположен С-Ю. Без ярко выраженного перевального взлета, тур на крупном камне. Подъем по мелкой осыпи и снежникам. Спуск по тропе на Софийские озера и перевал Иркиз.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4573835,
+              41.2261856
+            ]
+          }
+        },
+        "to": {
+          "id": 108,
+          "name": "Архыз",
+          "category": "поселок",
+          "description": "Карачаево-Черкесский аул, самый верхний поселок долины Большого Зеленчука, начальная и конечная точка маршрута.",
+          "pass_category": null,
+          "geom": null
+        },
+        "segment": {
+          "from_id": 104,
+          "to_id": 108,
+          "weight": 1,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 108,
+          "name": "Архыз",
+          "category": "поселок",
+          "description": "Карачаево-Черкесский аул, самый верхний поселок долины Большого Зеленчука, начальная и конечная точка маршрута.",
+          "pass_category": null,
+          "geom": null
+        },
+        "to": {
+          "id": 53,
+          "name": "Таулу",
+          "category": "поляна",
+          "description": "Софийская поляна (поляна Таулу), место ночёвки перед радиальным выходом к Софийским водопадам.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5178705,
+              41.2311817
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 108,
+          "to_id": 53,
+          "weight": 1,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 53,
+          "name": "Таулу",
+          "category": "поляна",
+          "description": "Софийская поляна (поляна Таулу), место ночёвки перед радиальным выходом к Софийским водопадам.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5178705,
+              41.2311817
+            ]
+          }
+        },
+        "to": {
+          "id": 90,
+          "name": "София",
+          "category": "река",
+          "description": "Река, вдоль которой идёт тропа вверх по течению.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4778226,
+              41.2490954
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 53,
+          "to_id": 90,
+          "weight": 1,
+          "is_camp": true
+        }
+      },
+      {
+        "from": {
+          "id": 90,
+          "name": "София",
+          "category": "река",
+          "description": "Река, вдоль которой идёт тропа вверх по течению.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.4778226,
+              41.2490954
+            ]
+          }
+        },
+        "to": {
+          "id": 89,
+          "name": "Архыз",
+          "category": "стоянка",
+          "description": "Стартовая точка маршрута, посёлок в Западном Кавказе.",
+          "pass_category": null,
+          "geom": null
+        },
+        "segment": {
+          "from_id": 90,
+          "to_id": 89,
+          "weight": 2,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 89,
+          "name": "Архыз",
+          "category": "стоянка",
+          "description": "Стартовая точка маршрута, посёлок в Западном Кавказе.",
+          "pass_category": null,
+          "geom": null
+        },
+        "to": {
+          "id": 99,
+          "name": "Лунная",
+          "category": "поляна",
+          "description": "Поляна, место ночёвки после перевалов Мыглвал, Агур и Федосеева.",
+          "pass_category": null,
+          "geom": null
+        },
+        "segment": {
+          "from_id": 89,
+          "to_id": 99,
+          "weight": 2,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 99,
+          "name": "Лунная",
+          "category": "поляна",
+          "description": "Поляна, место ночёвки после перевалов Мыглвал, Агур и Федосеева.",
+          "pass_category": null,
+          "geom": null
+        },
+        "to": {
+          "id": 98,
+          "name": "Федосеева",
+          "category": "перевал",
+          "description": "Перевал Федосеева (1А, 2880 м). Спуск по сыпухе, моренному плато и крутому склону до леса.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5878595,
+              41.1858527
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 99,
+          "to_id": 98,
+          "weight": 2,
+          "is_camp": true
+        }
+      }
+    ],
+    "stats": {
+      "total_weight": 15,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 3,
+    "steps": [
+      {
+        "from": {
+          "id": 98,
+          "name": "Федосеева",
+          "category": "перевал",
+          "description": "Перевал Федосеева (1А, 2880 м). Спуск по сыпухе, моренному плато и крутому склону до леса.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5878595,
+              41.1858527
+            ]
+          }
+        },
+        "to": {
+          "id": 44,
+          "name": "Мылгвал",
+          "category": "перевал",
+          "description": "Перевал Мылгвал (1А, 2848 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5978851,
+              41.1727238
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 98,
+          "to_id": 44,
+          "weight": 4,
+          "is_camp": true
+        }
+      },
+      {
+        "from": {
+          "id": 44,
+          "name": "Мылгвал",
+          "category": "перевал",
+          "description": "Перевал Мылгвал (1А, 2848 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5978851,
+              41.1727238
+            ]
+          }
+        },
+        "to": {
+          "id": 43,
+          "name": "Агур Северный",
+          "category": "перевал",
+          "description": "Перевал Агур Северный (1А, 2997 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5943093,
+              41.1861419
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 44,
+          "to_id": 43,
+          "weight": 4,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 43,
+          "name": "Агур Северный",
+          "category": "перевал",
+          "description": "Перевал Агур Северный (1А, 2997 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5943093,
+              41.1861419
+            ]
+          }
+        },
+        "to": {
+          "id": 42,
+          "name": "Бурное",
+          "category": "озеро",
+          "description": "Озеро Бурное, место стоянки на третий день.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.6019666,
+              41.1991291
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 43,
+          "to_id": 42,
+          "weight": 4,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 42,
+          "name": "Бурное",
+          "category": "озеро",
+          "description": "Озеро Бурное, место стоянки на третий день.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.6019666,
+              41.1991291
+            ]
+          }
+        },
+        "to": {
+          "id": 40,
+          "name": "Запрудное",
+          "category": "озеро",
+          "description": "Озеро Запрудное, место ночёвки после перевалов Баритовый и Архыз.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5933066,
+              41.2256894
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 42,
+          "to_id": 40,
+          "weight": 2,
+          "is_camp": true
+        }
+      }
+    ],
+    "stats": {
+      "total_weight": 14,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 4,
+    "steps": [
+      {
+        "from": {
+          "id": 40,
+          "name": "Запрудное",
+          "category": "озеро",
+          "description": "Озеро Запрудное, место ночёвки после перевалов Баритовый и Архыз.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5933066,
+              41.2256894
+            ]
+          }
+        },
+        "to": {
+          "id": 39,
+          "name": "Архыз",
+          "category": "перевал",
+          "description": "Перевал Архыз (1А, 3000 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5944828,
+              41.245944
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 40,
+          "to_id": 39,
+          "weight": 3,
+          "is_camp": true
+        }
+      },
+      {
+        "from": {
+          "id": 39,
+          "name": "Архыз",
+          "category": "перевал",
+          "description": "Перевал Архыз (1А, 3000 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5944828,
+              41.245944
+            ]
+          }
+        },
+        "to": {
+          "id": 38,
+          "name": "Баритовый",
+          "category": "перевал",
+          "description": "Перевал Баритовый (1А, 2800 м), проход с юго-востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5969262,
+              41.2591318
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 39,
+          "to_id": 38,
+          "weight": 4,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 38,
+          "name": "Баритовый",
+          "category": "перевал",
+          "description": "Перевал Баритовый (1А, 2800 м), проход с юго-востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5969262,
+              41.2591318
+            ]
+          }
+        },
+        "to": {
+          "id": 37,
+          "name": "Баритовый",
+          "category": "водопад",
+          "description": "Водопад Баритовый, к которому группа поднималась в первый день.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.587035,
+              41.2788357
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 38,
+          "to_id": 37,
+          "weight": 4,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 37,
+          "name": "Баритовый",
+          "category": "водопад",
+          "description": "Водопад Баритовый, к которому группа поднималась в первый день.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.587035,
+              41.2788357
+            ]
+          }
+        },
+        "to": {
+          "id": 38,
+          "name": "Баритовый",
+          "category": "перевал",
+          "description": "Перевал Баритовый (1А, 2800 м), проход с юго-востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5969262,
+              41.2591318
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 37,
+          "to_id": 38,
+          "weight": 4,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 38,
+          "name": "Баритовый",
+          "category": "перевал",
+          "description": "Перевал Баритовый (1А, 2800 м), проход с юго-востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5969262,
+              41.2591318
+            ]
+          }
+        },
+        "to": {
+          "id": 39,
+          "name": "Архыз",
+          "category": "перевал",
+          "description": "Перевал Архыз (1А, 3000 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5944828,
+              41.245944
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 38,
+          "to_id": 39,
+          "weight": 4,
+          "is_camp": false
+        }
+      }
+    ],
+    "stats": {
+      "total_weight": 19,
+      "camp_end": false
+    }
+  },
+  {
+    "day": 5,
+    "steps": [
+      {
+        "from": {
+          "id": 39,
+          "name": "Архыз",
+          "category": "перевал",
+          "description": "Перевал Архыз (1А, 3000 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5944828,
+              41.245944
+            ]
+          }
+        },
+        "to": {
+          "id": 40,
+          "name": "Запрудное",
+          "category": "озеро",
+          "description": "Озеро Запрудное, место ночёвки после перевалов Баритовый и Архыз.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5933066,
+              41.2256894
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 39,
+          "to_id": 40,
+          "weight": 3,
+          "is_camp": true
+        }
+      },
+      {
+        "from": {
+          "id": 40,
+          "name": "Запрудное",
+          "category": "озеро",
+          "description": "Озеро Запрудное, место ночёвки после перевалов Баритовый и Архыз.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5933066,
+              41.2256894
+            ]
+          }
+        },
+        "to": {
+          "id": 42,
+          "name": "Бурное",
+          "category": "озеро",
+          "description": "Озеро Бурное, место стоянки на третий день.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.6019666,
+              41.1991291
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 40,
+          "to_id": 42,
+          "weight": 2,
+          "is_camp": true
+        }
+      },
+      {
+        "from": {
+          "id": 42,
+          "name": "Бурное",
+          "category": "озеро",
+          "description": "Озеро Бурное, место стоянки на третий день.",
+          "pass_category": null,
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.6019666,
+              41.1991291
+            ]
+          }
+        },
+        "to": {
+          "id": 43,
+          "name": "Агур Северный",
+          "category": "перевал",
+          "description": "Перевал Агур Северный (1А, 2997 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5943093,
+              41.1861419
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 42,
+          "to_id": 43,
+          "weight": 4,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 43,
+          "name": "Агур Северный",
+          "category": "перевал",
+          "description": "Перевал Агур Северный (1А, 2997 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5943093,
+              41.1861419
+            ]
+          }
+        },
+        "to": {
+          "id": 44,
+          "name": "Мылгвал",
+          "category": "перевал",
+          "description": "Перевал Мылгвал (1А, 2848 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5978851,
+              41.1727238
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 43,
+          "to_id": 44,
+          "weight": 4,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 44,
+          "name": "Мылгвал",
+          "category": "перевал",
+          "description": "Перевал Мылгвал (1А, 2848 м), проход с востока.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5978851,
+              41.1727238
+            ]
+          }
+        },
+        "to": {
+          "id": 98,
+          "name": "Федосеева",
+          "category": "перевал",
+          "description": "Перевал Федосеева (1А, 2880 м). Спуск по сыпухе, моренному плато и крутому склону до леса.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5878595,
+              41.1858527
+            ]
+          }
+        },
+        "segment": {
+          "from_id": 44,
+          "to_id": 98,
+          "weight": 4,
+          "is_camp": true
+        }
+      }
+    ],
+    "stats": {
+      "total_weight": 17,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 6,
+    "steps": [
+      {
+        "from": {
+          "id": 98,
+          "name": "Федосеева",
+          "category": "перевал",
+          "description": "Перевал Федосеева (1А, 2880 м). Спуск по сыпухе, моренному плато и крутому склону до леса.",
+          "pass_category": "1А",
+          "geom": {
+            "type": "Point",
+            "crs": {
+              "type": "name",
+              "properties": {
+                "name": "EPSG:4326"
+              }
+            },
+            "coordinates": [
+              43.5878595,
+              41.1858527
+            ]
+          }
+        },
+        "to": {
+          "id": 99,
+          "name": "Лунная",
+          "category": "поляна",
+          "description": "Поляна, место ночёвки после перевалов Мыглвал, Агур и Федосеева.",
+          "pass_category": null,
+          "geom": null
+        },
+        "segment": {
+          "from_id": 98,
+          "to_id": 99,
+          "weight": 2,
+          "is_camp": true
+        }
+      },
+      {
+        "from": {
+          "id": 99,
+          "name": "Лунная",
+          "category": "поляна",
+          "description": "Поляна, место ночёвки после перевалов Мыглвал, Агур и Федосеева.",
+          "pass_category": null,
+          "geom": null
+        },
+        "to": {
+          "id": 89,
+          "name": "Архыз",
+          "category": "стоянка",
+          "description": "Стартовая точка маршрута, посёлок в Западном Кавказе.",
+          "pass_category": null,
+          "geom": null
+        },
+        "segment": {
+          "from_id": 99,
+          "to_id": 89,
+          "weight": 2,
+          "is_camp": false
+        }
+      },
+      {
+        "from": {
+          "id": 89,
+          "name": "Архыз",
+          "category": "стоянка",
+          "description": "Стартовая точка маршрута, посёлок в Западном Кавказе.",
+          "pass_category": null,
+          "geom": null
+        },
+        "to": {
+          "id": 143,
+          "name": "Софийская поляна",
+          "category": "поляна",
+          "description": "Поляна с турбазой, конечная точка маршрута перед возвращением в поселок Архыз.",
+          "pass_category": null,
+          "geom": null
+        },
+        "segment": {
+          "from_id": 89,
+          "to_id": 143,
+          "weight": 1,
+          "is_camp": false
+        }
+      }
+    ],
+    "stats": {
+      "total_weight": 5,
+      "camp_end": false
+    }
+  },
+  {
+    "day": 7,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 8,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 9,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 10,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 11,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 12,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 13,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 14,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 15,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 16,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 17,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 18,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 19,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 20,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  },
+  {
+    "day": 21,
+    "steps": [],
+    "stats": {
+      "total_weight": 0,
+      "camp_end": true
+    }
+  }
+]

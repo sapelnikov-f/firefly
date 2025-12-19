@@ -8,3 +8,7 @@ __pycache__/
 .vscode/
 **/.DS_Store
 tester_function.py
+.\venv
+parsing/llm_config.py
+cache
+results/

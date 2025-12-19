@@ -5,3 +5,7 @@ networkx
 python-dotenv
 pydantic
 supabase
+openai
+beautifulsoup4
+osmnx
+scipy

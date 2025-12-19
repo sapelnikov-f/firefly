@@ -8,9 +8,11 @@ class DataLoader:
 
     def load_pois(self):
 
-        response = self.supabase.table("pois_test").select("id, name, elevation, category, lon, lat").execute()
+        response = self.supabase.table("pois").select("id, name, category, description, pass_category, geom").execute()
         return response.data
 
     def load_segments(self):
-        response = self.supabase.table("segments_test").select("id, start_poi, end_poi, length_km, elev_gain").execute()
+        response = self.supabase.table("segments").select("start_id, end_id, difficulty, is_camp, segment_description").execute()
         return response.data
+    
+
