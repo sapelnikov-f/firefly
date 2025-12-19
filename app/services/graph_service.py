@@ -162,7 +162,7 @@ class GraphService:
 
     # ---------- Публичный метод ----------
 
-    def build_route(self, start, must_visit, days, daily_limit):
+    def build_route(self, start, must_visit, daily_limit, days = 20):
         core_path = self.build_core_route(start, must_visit)
         print(core_path)
         steps = self.expand_to_steps(core_path)
