@@ -13,14 +13,12 @@
 
     <h1 class="title">FIND EXPERIENCE</h1>
 
-    <!-- DIFFICULTY -->
     <div class="difficulty-select">
         <div class="difficulty-card" data-level="1"><span class="card-text">EASY</span></div>
         <div class="difficulty-card" data-level="2"><span class="card-text">MEDIUM</span></div>
         <div class="difficulty-card" data-level="3"><span class="card-text">HARD</span></div>
     </div>
 
-    <!-- POINTS -->
     <div class="points-select">
         <div class="points-header" id="pointsHeader">
             <span class="points-label">INTEREST POINTS</span>
@@ -28,11 +26,9 @@
         </div>
 
         <div class="points-dropdown" id="pointsDropdown">
-            <!-- точки загрузятся из API -->
         </div>
     </div>
 
-    <!-- GENERATE -->
     <button class="generate-btn" onclick="generateRoute()">GENERATE</button>
 
 </div>
@@ -43,7 +39,6 @@ let selectedPoints = [];
 let selectedStartPoint = null;
 
 
-/* ---------- difficulty ---------- */
 document.querySelectorAll(".difficulty-card").forEach(card => {
     card.addEventListener("click", () => {
         document.querySelectorAll(".difficulty-card").forEach(c => c.classList.remove("active"));
@@ -53,7 +48,6 @@ document.querySelectorAll(".difficulty-card").forEach(card => {
 });
 
 
-/* ---------- points dropdown ---------- */
 const dropdown = document.getElementById("pointsDropdown");
 const header = document.getElementById("pointsHeader");
 const counter = document.getElementById("pointsCounter");
@@ -63,7 +57,6 @@ header.addEventListener("click", () => {
 });
 
 
-/* ---------- load POIs ---------- */
 async function loadPoints() {
     const res = await fetch("/api/pois");
     const points = await res.json();
@@ -101,8 +94,6 @@ async function loadPoints() {
 
 loadPoints();
 
-
-/* ---------- generate ---------- */
 async function generateRoute() {
 
     if (!selectedDifficulty || selectedPoints.length === 0 || !selectedStartPoint) {

@@ -23,14 +23,10 @@ app.include_router(route.router)
 def index():
     return FileResponse("app/static/index.html")
 
-
-# 👉 builder
 @app.get("/route", response_class=HTMLResponse)
 def route_builder():
     return FileResponse("app/static/builder.html")
 
-
-# 👉 результат
 @app.get("/route/result", response_class=HTMLResponse)
 def route_result():
     return FileResponse("app/static/more_page.html")
