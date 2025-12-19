@@ -1,8 +1,6 @@
 import networkx as nx
-import heapq
 from app.services.data_loader import DataLoader
-import json
-import matplotlib.pyplot as plt
+
 
 
 class GraphService:
@@ -10,7 +8,7 @@ class GraphService:
     def __init__(self):
         self.G = nx.Graph()
 
-    # ---------- Построение графа ----------
+
 
     def build_graph(self, pois, segments):
         self.G.clear()
@@ -26,12 +24,11 @@ class GraphService:
                 is_camp=seg["is_camp"]
             )
 
-        # оставляем крупнейшую компоненту связности
         components = list(nx.connected_components(self.G))
         largest_component = max(components, key=len)
         self.G = self.G.subgraph(largest_component).copy()
 
-    # ---------- Базовые методы ----------
+
 
     def shortest_path(self, a, b):
         return nx.shortest_path(self.G, a, b, weight="weight")
@@ -39,7 +36,7 @@ class GraphService:
     def shortest_distance(self, a, b):
         return nx.shortest_path_length(self.G, a, b, weight="weight")
 
-    # ---------- Этап 1: единый маршрут ----------
+
 
     def build_core_route(self, start, must_visit):
         route = [start]
@@ -58,19 +55,16 @@ class GraphService:
             current = next_point
             unvisited.remove(next_point)
 
-        # возврат в старт
+
         path = self.shortest_path(current, start)
         route.extend(path[1:])
 
         return route
 
-    # ---------- Разворачивание в шаги с атрибутами ----------
+
 
     def expand_to_steps(self, path):
-        """
-        Превращает путь [v1, v2, v3]
-        в шаги с атрибутами вершин и сегментов
-        """
+
         steps = []
 
         for i in range(len(path) - 1):
@@ -95,12 +89,10 @@ class GraphService:
 
         return steps
 
-    # ---------- Этап 2: разбиение по дням ----------
+
 
     def split_steps_by_days(self, steps, daily_limit):
-        """
-        Разбивает шаги маршрута на дни по лимиту веса.
-        """
+
         route = []
         current_day = {
             "day": 1,
@@ -126,13 +118,11 @@ class GraphService:
             current_day["steps"].append(step)
             current_day["stats"]["total_weight"] += w
 
-        # добавляем последний день
         if current_day["steps"]:
             route.append(current_day)
 
         return route
 
-    # ---------- Публичный метод ----------
     def build_route(self, start, must_visit, daily_limit):
 
         core_path = self.build_core_route(start, must_visit)
@@ -146,3 +136,6 @@ class GraphService:
             steps.extend(back_steps)
 
         return self.split_steps_by_days(steps, daily_limit)
+    
+
+
