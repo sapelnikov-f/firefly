@@ -2,8 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firefly — Find Experience</title>
+    <title>Firefly — Route Builder</title>
     <link rel="stylesheet" href="/static/css/routes.css">
 </head>
 <body>
@@ -14,195 +13,123 @@
 
     <h1 class="title">FIND EXPERIENCE</h1>
 
+    <!-- DIFFICULTY -->
     <div class="difficulty-select">
-
-        <div class="difficulty-card" data-level="1">
-            <span class="card-text">EASY</span>
-        </div>
-        <div class="difficulty-card" data-level="2">
-            <span class="card-text">MEDIUM</span>
-        </div>
-        <div class="difficulty-card" data-level="3">
-            <span class="card-text">HARD</span>
-        </div>
-
+        <div class="difficulty-card" data-level="1"><span class="card-text">EASY</span></div>
+        <div class="difficulty-card" data-level="2"><span class="card-text">MEDIUM</span></div>
+        <div class="difficulty-card" data-level="3"><span class="card-text">HARD</span></div>
     </div>
 
-    <div class="days-select">
-        <div class="days-label-row">
-            <span class="days-label">TRIP DURATION</span>
-            <span class="days-value"><span id="daysValue">2</span> DAYS</span>
-        </div>
-
-        <input
-            type="range"
-            id="daysSlider"
-            min="1"
-            max="10"
-            step="1"
-            value="2"
-            class="days-slider"
-        />
-    </div>
-
+    <!-- POINTS -->
     <div class="points-select">
-
-        <div class="points-header" id="pointsToggle">
+        <div class="points-header" id="pointsHeader">
             <span class="points-label">INTEREST POINTS</span>
-            <span class="points-counter">
-                <span id="pointsCount">0</span>/3
-            </span>
+            <span class="points-counter" id="pointsCounter">0 selected</span>
         </div>
 
         <div class="points-dropdown" id="pointsDropdown">
-
-            <label class="point-item">
-                <input type="checkbox" value="Архыз">
-                <span>Архыз</span>
-            </label>
-
-            <label class="point-item">
-                <input type="checkbox" value="Баритовый">
-                <span>Баритовый</span>
-            </label>
-
-            <label class="point-item">
-                <input type="checkbox" value="Запрудное">
-                <span>Запрудное</span>
-            </label>
-
-            <label class="point-item">
-                <input type="checkbox" value="Бурное">
-                <span>Бурное</span>
-            </label>
-
-            <label class="point-item">
-                <input type="checkbox" value="Агур Северный">
-                <span>Агур Северный</span>
-            </label>
-
-            <label class="point-item">
-                <input type="checkbox" value="Мылгвал">
-                <span>Мылгвал</span>
-            </label>
-
-            <label class="point-item">
-                <input type="checkbox" value="Перевальное">
-                <span>Перевальное</span>
-            </label>
-
-            <label class="point-item">
-                <input type="checkbox" value="Речепста">
-                <span>Речепста</span>
-            </label>
-
+            <!-- точки загрузятся из API -->
         </div>
     </div>
 
-    <button class="generate-btn">GENERATE</button>
+    <!-- GENERATE -->
+    <button class="generate-btn" onclick="generateRoute()">GENERATE</button>
 
 </div>
 
 <script>
-const cards = document.querySelectorAll('.difficulty-card');
+let selectedDifficulty = null;
+let selectedPoints = [];
+let selectedStartPoint = null;
 
-cards.forEach(card => {
-    card.addEventListener('click', () => {
-        cards.forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        updateAccentColor();
-        updateDaysLimits();
+
+/* ---------- difficulty ---------- */
+document.querySelectorAll(".difficulty-card").forEach(card => {
+    card.addEventListener("click", () => {
+        document.querySelectorAll(".difficulty-card").forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        selectedDifficulty = Number(card.dataset.level);
     });
 });
 
-const difficultyColors = {
-    1: '#6BFFB8',
-    2: '#FFD966',
-    3: '#FF5A5A'
-};
 
-function updateAccentColor() {
-    const active = document.querySelector('.difficulty-card.active');
-    if (!active) return;
+/* ---------- points dropdown ---------- */
+const dropdown = document.getElementById("pointsDropdown");
+const header = document.getElementById("pointsHeader");
+const counter = document.getElementById("pointsCounter");
 
-    const level = active.dataset.level;
-    const color = difficultyColors[level];
-
-    document.documentElement.style.setProperty('--accent-color', color);
-}
-
-const daysSlider = document.getElementById('daysSlider');
-const daysValue  = document.getElementById('daysValue');
-
-const daysRules = {
-    1: { min: 1,  max: 4  },
-    2: { min: 3,  max: 6  },
-    3: { min: 5,  max: 10 }
-};
-
-function getActiveDifficulty() {
-    return document.querySelector('.difficulty-card.active').dataset.level;
-}
-
-function updateDaysLimits() {
-    const diff = getActiveDifficulty();
-    const rule = daysRules[diff];
-
-    daysSlider.min = rule.min;
-    daysSlider.max = rule.max;
-
-    if (+daysSlider.value < rule.min) daysSlider.value = rule.min;
-    if (+daysSlider.value > rule.max) daysSlider.value = rule.max;
-
-    updateDaysValue();
-}
-
-function updateDaysValue() {
-    daysValue.textContent = daysSlider.value;
-    updateDaysSliderFill();
-}
-
-function updateDaysSliderFill() {
-    const percent = (daysSlider.value - daysSlider.min) /
-        (daysSlider.max - daysSlider.min) * 100;
-
-    daysSlider.style.background = `
-        linear-gradient(
-            to right,
-            var(--accent-color) 0%,
-            var(--accent-color) ${percent}%,
-            rgba(255,255,255,0.25) ${percent}%,
-            rgba(255,255,255,0.25) 100%
-        )
-    `;
-}
-
-daysSlider.addEventListener('input', updateDaysValue);
-
-const pointsToggle = document.getElementById('pointsToggle');
-const pointsDropdown = document.getElementById('pointsDropdown');
-const pointsCheckboxes = pointsDropdown.querySelectorAll('input[type="checkbox"]');
-const pointsCount = document.getElementById('pointsCount');
-
-pointsToggle.addEventListener('click', () => {
-    pointsDropdown.classList.toggle('open');
+header.addEventListener("click", () => {
+    dropdown.classList.toggle("open");
 });
 
-pointsCheckboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-        const checked = [...pointsCheckboxes].filter(c => c.checked);
 
-        if (checked.length > 3) {
-            cb.checked = false;
-            return;
-        }
+/* ---------- load POIs ---------- */
+async function loadPoints() {
+    const res = await fetch("/api/pois");
+    const points = await res.json();
 
-        pointsCount.textContent = checked.length;
+    dropdown.innerHTML = "";
+
+    points.forEach(p => {
+        const item = document.createElement("label");
+        item.className = "point-item";
+
+        item.innerHTML = `
+            <input type="checkbox" value="${p.id}">
+            <span>${p.name}</span>
+        `;
+
+        const checkbox = item.querySelector("input");
+
+        checkbox.addEventListener("change", () => {
+            if (checkbox.checked) {
+                selectedPoints.push(p.id);
+                if (!selectedStartPoint) selectedStartPoint = p.id;
+            } else {
+                selectedPoints = selectedPoints.filter(id => id !== p.id);
+                if (selectedStartPoint === p.id) {
+                    selectedStartPoint = selectedPoints[0] || null;
+                }
+            }
+
+            counter.textContent = `${selectedPoints.length} selected`;
+        });
+
+        dropdown.appendChild(item);
     });
-});
+}
 
-updateAccentColor();
-updateDaysLimits();
+loadPoints();
+
+
+/* ---------- generate ---------- */
+async function generateRoute() {
+
+    if (!selectedDifficulty || selectedPoints.length === 0 || !selectedStartPoint) {
+        alert("Select difficulty and points");
+        return;
+    }
+
+    const response = await fetch("/api/find-route", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            start_id: selectedStartPoint,
+            must_visit: selectedPoints,
+            difficulty: selectedDifficulty
+        })
+    });
+
+    if (!response.ok) {
+        alert("Route build error");
+        return;
+    }
+
+    const result = await response.json();
+
+    sessionStorage.setItem("routeResult", JSON.stringify(result));
+    window.location.href = "/route/result";
+}
 </script>
 
 </body>

@@ -1,10 +1,8 @@
 import networkx as nx
 import heapq
-from data_loader import DataLoader
+from app.services.data_loader import DataLoader
 import json
 import matplotlib.pyplot as plt
-
-
 
 
 class GraphService:
@@ -99,15 +97,16 @@ class GraphService:
 
     # ---------- Этап 2: разбиение по дням ----------
 
-    def split_steps_by_days(self, steps, days, daily_limit):
+    def split_steps_by_days(self, steps, daily_limit):
+        """
+        Разбивает шаги маршрута на дни по лимиту веса.
+        """
         route = []
-
         current_day = {
             "day": 1,
             "steps": [],
             "stats": {
-                "total_weight": 0,
-                "camp_end": False
+                "total_weight": 0
             }
         }
 
@@ -120,112 +119,30 @@ class GraphService:
                     "day": current_day["day"] + 1,
                     "steps": [],
                     "stats": {
-                        "total_weight": 0,
-                        "camp_end": False
+                        "total_weight": 0
                     }
                 }
 
             current_day["steps"].append(step)
             current_day["stats"]["total_weight"] += w
 
-            if (
-                step["segment"].get("is_camp")
-                and current_day["stats"]["total_weight"] >= 0.6 * daily_limit
-                and current_day["day"] < days
-            ):
-                current_day["stats"]["camp_end"] = True
-                route.append(current_day)
-
-                current_day = {
-                    "day": current_day["day"] + 1,
-                    "steps": [],
-                    "stats": {
-                        "total_weight": 0,
-                        "camp_end": False
-                    }
-                }
-
-        route.append(current_day)
-
-        # дни отдыха
-        while len(route) < days:
-            route.append({
-                "day": len(route) + 1,
-                "steps": [],
-                "stats": {
-                    "total_weight": 0,
-                    "camp_end": True
-                }
-            })
+        # добавляем последний день
+        if current_day["steps"]:
+            route.append(current_day)
 
         return route
 
     # ---------- Публичный метод ----------
+    def build_route(self, start, must_visit, daily_limit):
 
-    def build_route(self, start, must_visit, daily_limit, days = 20):
         core_path = self.build_core_route(start, must_visit)
-        print(core_path)
+
+
         steps = self.expand_to_steps(core_path)
-        return self.split_steps_by_days(steps, days, daily_limit)
 
-# ---------- тест ----------
-if __name__ == "__main__":
+        if steps[-1]["to"]["id"] != start:
+            path_back = self.shortest_path(steps[-1]["to"]["id"], start)
+            back_steps = self.expand_to_steps(path_back)
+            steps.extend(back_steps)
 
-    loader = DataLoader()
-
-    reacheble_pois= {
-        6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 20,
-          21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-            31, 33, 34, 36, 37, 38, 39, 40, 42, 43, 
-            44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 
-            54, 63, 64, 66, 68, 70, 72, 74, 75, 77, 
-            79, 80, 81, 83, 85, 86, 87, 88, 89, 90, 
-            91, 92, 93, 94, 95, 96, 97, 98, 99, 100,
-              101, 102, 103, 104, 105, 106, 108, 110,
-                111, 112, 114, 115, 116, 117, 118, 119, 
-                120, 121, 125, 126, 128, 129, 130, 133, 134,
-                  135, 136, 137, 138, 139, 140, 141, 143, 145,
-                    147, 149, 150, 151, 153}
-    
-    pois = loader.load_pois()
-    segments = loader.load_segments()
-    gs = GraphService()
-    gs.build_graph(pois, segments)
-    start_point=143
-    route = gs.build_route(start_point,must_visit=[91,128, 106, 37],days=21,daily_limit=20)
-
-# print(route)
-if route:
-    for i, day in enumerate(route, 1):
-        for step in day["steps"]:
-            print(day["day"], ":  ", step["from"]["name"]," (",step["from"]["category"],") ",   " - > ",  step["to"]["name"]," (",step["to"]["category"],") ")
-else:
-    print("Маршрут не найден")
-
-
-with open("test_route.json", "w") as f:
-        json.dump(route, f, indent=2, ensure_ascii=False)
-
-
-
-
-
-
-#     G = gs.G  # ваш граф из GraphService
-
-#     pos = nx.spring_layout(G)  # позиционирование вершин
-#     nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=800)
-#     nx.draw_networkx_edges(G, pos, edge_color='gray')
-#     edge_labels = nx.get_edge_attributes(G, 'weight')
-
-# # округляем до 2 знаков после запятой
-#     edge_labels_rounded = {k: round(v, 2) for k, v in edge_labels.items()}
-
-# # рисуем граф с округлёнными подписями
-#     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels_rounded)
-    
-
-#     plt.title("Граф POI")
-#     plt.show()  
-    
-
+        return self.split_steps_by_days(steps, daily_limit)
